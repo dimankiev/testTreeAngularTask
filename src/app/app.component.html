@@ -1,1 +1,13 @@
-<app-nx-welcome></app-nx-welcome> <router-outlet></router-outlet>
+<button (click)="changeSource()">
+  Change source (api or assets)
+</button>
+<app-nested-tree
+  [treeControl]="treeControl"
+  [trackById]="trackById"
+  [formControl]="treeFormControl"
+  [tree]="tree!"
+>
+  <ng-template let-node="node">
+    {{ node.data.name }}
+  </ng-template>
+</app-nested-tree>

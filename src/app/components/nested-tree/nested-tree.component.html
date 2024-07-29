@@ -1,0 +1,32 @@
+<cdk-tree [dataSource]="dataSource" [treeControl]="treeControl" class="nested-tree">
+  <cdk-nested-tree-node
+    *cdkTreeNodeDef="let node"
+    class="nested-tree-node"
+    [id]="node.id" [class.disabled]="node.disabled">
+    <div class="nested-tree-node-content">
+      <mat-checkbox
+        class="nested-tree-node-checkbox"
+        [checked]="selectionModel.isSelected(node)"
+        (change)="toggle(node)"
+        [indeterminate]="selectionModel.isIndeterminate(node)"
+        [disabled]="node.disabled"
+      ></mat-checkbox>
+      <ng-container
+        [ngTemplateOutlet]="itemTemplate"
+        [ngTemplateOutletContext]="{ node: node }">
+      </ng-container>
+      <button
+        mat-icon-button cdkTreeNodeToggle
+        *ngIf="node.children?.length"
+        class="nested-tree-node-expand-btn"
+        [class.expanded]="treeControl.isExpanded(node)">
+        <mat-icon class="expand-icon" fontIcon="keyboard_arrow_up"></mat-icon>
+      </button>
+    </div>
+
+    <div *ngIf="treeControl.isExpanded(node)">
+      <ng-container cdkTreeNodeOutlet></ng-container>
+    </div>
+
+  </cdk-nested-tree-node>
+</cdk-tree>
